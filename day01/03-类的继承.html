@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月17日21:20:35
+        * 目的:   类的继承
+        *
+        * 结果:
+        *   --------------------------------
+        *
+        *
+        *   --------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    class Futher {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        //注意,这里this指向的是son的
+        sum() {
+            console.log(this.x + this.y);
+        }
+    }
+
+    // 继承
+    class Son extends Futher {
+        constructor(x, y) {
+            // 调用了父类中的构造函数
+            // super关键字用于访问和调用对象父类上的函数。可以调用父类的构造函数,也可以调用父类的普通函数
+            super(x, y);
+        }
+    }
+
+    var son1 = new Son(1, 2);
+    son1.sum();
+    var son2 = new Son(11, 22);
+    son2.sum();
+</script>
+</body>
+</html>
