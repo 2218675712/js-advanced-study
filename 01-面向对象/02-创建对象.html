@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月18日22:01:41
+        * 目的:   创建对象
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // 对象字面量
+    var zs = {
+        name: '张三',
+        age: 40
+    };
+    console.log(zs);
+    // new Object() 通过构造函数创建 构造函数一般用于创建对象（构造对象）
+    var obj = new Object();
+    console.log(obj);
+
+    // 自定义构造函数
+    function Cat() {
+        this.color = 'red';
+    };
+
+    var cat1 = new Cat();
+    var cat2 = new Cat();
+    console.log(cat1);
+    console.log(cat2);
+
+    // 创建一个女朋友类
+    function Girl() {
+        console.log(this);
+        this.age = 18;
+        this.xueli = '本科';
+    };
+
+    var girl1 = new Girl();
+    var girl2 = new Girl();
+    console.log(girl1);
+    console.log(girl1 === girl2);// 不相等
+    /*
+      new 构造函数
+      1 在内存中创建一个新的空对象 {}
+      2 让函数中的this指向空对象 this === {}
+      3 开始执行函数体 {age: 22, xueli: 'benke'}
+      4 返回该对象 (构造函数中不需要写return)
+    */
+</script>
+</body>
+</html>
