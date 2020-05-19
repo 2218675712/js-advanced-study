@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月19日22:45:13
+        * 目的:   静态成员,实例成员
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    function Student(name, age) {
+        //实例成员  通过new出来的成员
+        // name,age叫对象的属性（成员）
+        this.name = name;
+        this.age = age;
+        // study叫对象的方法 （成员）
+        this.study = function () {
+            console.log('day day up');
+        }
+    }
+
+    Student.nation = "china";// nation 静态成员 在构造函数本身添加的成员
+
+    var stu1 = new Student('张三', 18);
+    // 构造函数内部通过this添加的成员 叫实例成员 访问实例成员 对象.成员
+    console.log(stu1);
+    console.log(stu1.name);
+    //undefined 不能使用
+    console.log(stu1.nation);
+    stu1.study();
+    // 访问静态成员 只能通过构造函数去访问
+    console.log(Student.nation);
+    //undefined 不能使用
+    console.log(Student.age);
+</script>
+</body>
+</html>
