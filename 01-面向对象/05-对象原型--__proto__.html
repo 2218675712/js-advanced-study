@@ -40,6 +40,10 @@
     /*
    对象都会有一个属性__proto__(非标准属性),指向构造函数的prototype原型对象
 */
+    /*
+    * 构造函数，通过prototype来存储要共享的属性和方法，也可以设置prototype指向现存的对象来继承该对象。
+对象的__proto__指向自己构造函数的prototype。obj.__proto__.__proto__...的原型链由此产生，包括我们的操作符instanceof正是通过探测obj.__proto__.__proto__... === Constructor.prototype来验证obj是否是Constructor的实例。
+* */
 </script>
 </body>
 </html>
