@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月20日17:03:13
+        * 目的:   js原型
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    function Student(name, age) {
+        //实例成员  通过new出来的成员
+        // name,age叫对象的属性（成员）
+        this.name = name;
+        this.age = age;
+
+    }
+
+    var stu1 = new Student('张三', 18);
+    var stu2 = new Student('李四', 19);
+    Student.prototype.run = function () {
+        console.log('running');
+    }
+    Student.prototype.study = function () {
+        console.log('day day up');
+    }
+    console.log(stu1.__proto__ === Student.prototype);//    true
+    console.log(stu2.__proto__ === Student.prototype);//    true
+    console.log(stu1.__proto__ === stu2.__proto__);//    true
+    /*
+   对象都会有一个属性__proto__(非标准属性),指向构造函数的prototype原型对象
+*/
+</script>
+</body>
+</html>
