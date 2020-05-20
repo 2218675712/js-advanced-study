@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月20日11:23:39
+        * 目的:   js原型,共享机制
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    function Student(name, age) {
+        //实例成员  通过new出来的成员
+        // name,age叫对象的属性（成员）
+        this.name = name;
+        this.age = age;
+        // study叫对象的方法 （成员）
+        /*
+                this.study = function () {
+                    console.log('day day up');
+                }
+                */
+    }
+
+    Student.nation = "china";// nation 静态成员 在构造函数本身添加的成员
+
+    var stu1 = new Student('张三', 18);
+    var stu2 = new Student('李四', 19);
+    console.log(stu1.study === stu2.study);//   false
+    console.dir(Student.prototype);//   这就是原型,也是一个对象
+    // 原型中的对象new的时候是内存中的同一块空间,可以共享访问,比实例对象节约内存
+
+    Student.prototype.run = function () {
+        console.log('running');
+    }
+    Student.prototype.study = function () {
+        console.log('day day up');
+    }
+    console.log(stu1.run === stu2.run);// true
+    /*
+   原型定义的函数是可共享(将来构造函数的实例都可以共享)
+   每一个构造函数都有一个prototype属性,指向一个对象，假如
+   该对象定义了属性和方法 这些都会被构造函数拥有
+*/
+</script>
+</body>
+</html>
