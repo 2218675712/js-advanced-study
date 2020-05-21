@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月21日11:45:51
+        * 目的:   constructor
+        *
+        * 结果:
+        *       ---------------------------------
+        *       constructor就是指向构造函数
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // 构造函数
+    function Student(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    /*
+    这个是追加,原来的constructor还在
+        Student.prototype.study = function () {
+            console.log('good good study');
+        }
+        Student.prototype.run = function () {
+            console.log('running');
+        }
+        */
+    // 这个是替换,要手动添加
+    Student.prototype = {
+        constructor: Student, // 千万别忘记
+        study: function () {
+            console.log('good good study');
+        },
+        run: function () {
+            console.log('running');
+        }
+    }
+    var zs = new Student('zs', 18); // 实例对象
+    var lisi = new Student('lisi', 22);
+    zs.study();
+    lisi.run();
+    console.log(Student.prototype);
+    /*     原型对象  对象原型
+
+*/
+    console.log(Student.prototype === zs.__proto__);//true
+    console.log(Student.prototype.constructor);//构造函数
+    console.log(zs.constructor === Student);//true
+    console.log(zs.constructor === zs.__proto__.constructor);//true 就是Student
+    console.log(zs.constructor === Student.prototype.constructor);//true
+    /*
+       构造函数原型prototype身上有一个属性constructor,它
+       的值指向构造函数
+       Student  ---------> Student.prototype
+                <---------
+                constructor
+    */
+</script>
+</body>
+</html>
