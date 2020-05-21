@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Student(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Student.prototype = {
+        constructor: Student, // 千万别忘记
+        study: function () {
+            console.log('good good study');
+        },
+        run: function () {
+            console.log('running');
+        }
+    }
+    var zs = new Student('zs', 18); // 实例对象
+    var lisi = new Student('lisi', 22);
+    zs.study();
+    zs.run();
+    console.log(Student.prototype);
+    Object.prototype.printMsg = function () {
+        console.log('hello');
+    }
+    /*
+      原型对象也是对象 所以它也有__proto__
+      最上级就是Object.prototype
+    */
+    console.log(Object.prototype);
+    zs.printMsg();
+    /* js成员查找机制-原型链查找机制
+ 当我们访问一个对象的成员(方法或属性) 首先看自己有没有
+ ,假如没有就查找它的原型(也就是它的__proto__),假如还没有
+ 查找原型对象的原型(Object的原型对象)，依次类推最终
+ 找到Object
+*/
+</script>
+</body>
+</html>
