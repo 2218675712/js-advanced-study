@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月21日22:12:46
+        * 目的:   通过call实现继承(并不是原生继承)
+        *
+        * 结果:
+        *       ---------------------------------
+        *       call可以改变this指向,通过改变this指向为new的this就可以了
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    function Father(name, age) {
+        console.log(this);
+        this.name = name;
+        this.age = age;
+    }
+
+    function Son(name, age) {
+        // new Son的时候 this指向{}(谁new this指向谁)
+        Father.call(this, name, age)
+    }
+
+    /*
+        1 call() 可以实现函数调用
+        fun.call();
+        2 可以改变函数中this指向
+        fun.call(obj,10,20);
+        */
+    var zs = new Son('张三', 18);
+    console.log(zs.name, zs.age)
+</script>
+</body>
+</html>

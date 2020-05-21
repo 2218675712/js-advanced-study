@@ -5,19 +5,20 @@
     <title>Title</title>
     <script>
         /*
-        * 时间:   2020年05月21日19:24:37
-        * 目的:   原型链
+        * 时间:   2020年05月21日21:25:19
+        * 目的:   this指向
         *
         * 结果:
         *       ---------------------------------
-        *       根就是Object.prototype
-        *
+        *       构造函数this指的是对象实例
+        *       原型对象函数里面也this也是指向实例对象
         *       ---------------------------------
         * */
     </script>
 </head>
 <body>
 <script>
+    // 构造函数
     function Student(name, age) {
         this.name = name;
         this.age = age;
@@ -26,6 +27,7 @@
     Student.prototype = {
         constructor: Student, // 千万别忘记
         study: function () {
+            console.log(this);
             console.log('good good study');
         },
         run: function () {
@@ -34,24 +36,20 @@
     }
     var zs = new Student('zs', 18); // 实例对象
     var lisi = new Student('lisi', 22);
-    zs.study();
-    zs.run();
-    console.log(Student.prototype);
-    Object.prototype.printMsg = function () {
-        console.log('hello');
+    // 构造函数this指的是对象实例
+    zs.study(); // 原型对象函数里面也this也是指向实例对象
+    // 扩展数组方法 Array
+    Array.prototype.getSum = function () {
+        var sum = 0;
+        for (var i = 0; i < this.length; i++) {
+            sum += this[i];
+        }
+        return sum;
     }
-    /*
-      原型对象也是对象 所以它也有__proto__
-      最上级就是Object.prototype
-    */
-    console.log(Object.prototype);
-    zs.printMsg();
-    /* js成员查找机制-原型链查找机制
- 当我们访问一个对象的成员(方法或属性) 首先看自己有没有
- ,假如没有就查找它的原型(也就是它的__proto__),假如还没有
- 查找原型对象的原型(Object的原型对象)，依次类推最终
- 找到Object
-*/
+    var arr1 = [1, 2, 3, 4];
+    var arr2 = [2, 3, 4, 5];
+    console.log(arr1.getSum());
+    console.log(arr2.getSum());
 </script>
 </body>
 </html>
