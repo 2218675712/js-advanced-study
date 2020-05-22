@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月22日21:39:04
+        * 目的:   es6继承
+        *
+        * 结果:
+        *       ---------------------------------
+        *       super
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    class Fa {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        getMoney() {
+            console.log(100000);
+        }
+    }
+
+    class Son extends Fa {
+        constructor(name, age) {
+            // 调用父类构造函数
+            super(name, age);
+        }
+    }
+
+    var son1 = new Son("小明", 18);
+    son1.getMoney();
+</script>
+</body>
+</html>

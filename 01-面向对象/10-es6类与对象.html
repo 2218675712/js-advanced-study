@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月22日21:12:12
+        * 目的:   es6类与对象
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    class Student {
+
+        // 构造函数 接受传递来的参数 返回一个实例对象
+        constructor(sname, sage) {
+            this.sname = sname;
+            this.sage = sage;
+        }
+
+        study() {
+            console.log(this.sname + '再学习');
+        }
+
+        run() {
+            console.log(this.sname + '在跑步');
+        }
+    }
+
+    var zs = new Student('张三', 16);
+    var ls = new Student('李四', 18);
+    console.log(zs.study() === ls.study());//说明这两个方法都添加到原型上面了
+
+    /*
+    * 类里面所有函数不需要写function,
+    * 多个函数之间不需要添加逗号分割
+    * */
+</script>
+</body>
+</html>

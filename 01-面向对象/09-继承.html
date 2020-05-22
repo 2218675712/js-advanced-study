@@ -10,7 +10,10 @@
         *
         * 结果:
         *       ---------------------------------
-        *       call可以改变this指向,通过改变this指向为new的this就可以了
+        *       call可以改变this指向,通过改变this指向为new的this就可以了(属性继承)
+        *       // 方法继承
+        *       Son.prototype = new Father();
+        *       Son.prototype.constructor = Son;
         *
         *       ---------------------------------
         * */
@@ -19,9 +22,12 @@
 <body>
 <script>
     function Father(name, age) {
-        console.log(this);
         this.name = name;
         this.age = age;
+    }
+
+    Father.prototype.getMoney = function () {
+        console.log("给了" + this.name + "100万");
     }
 
     function Son(name, age) {
@@ -29,6 +35,15 @@
         Father.call(this, name, age)
     }
 
+
+    // 方法继承
+    Son.prototype = new Father();
+    Son.prototype.constructor = Son;
+
+    // 儿子自己的方法
+    Son.prototype.study = function () {
+        console.log('好好学习   ');
+    }
     /*
         1 call() 可以实现函数调用
         fun.call();
@@ -36,7 +51,18 @@
         fun.call(obj,10,20);
         */
     var zs = new Son('张三', 18);
-    console.log(zs.name, zs.age)
+    console.log(zs.name, zs.age);
+    zs.getMoney();
+    zs.study();
+    /*
+    Fa        Fa.prototype ({constructor:Fa,getMoney:fun...})
+                    ^
+                    |
+    Son       Son.prototype
+
+
+   zyc.getMoney(); zyc.__proto__ === Son.prototype {name:'wjj',age:23,__proto__}
+*/
 </script>
 </body>
 </html>
