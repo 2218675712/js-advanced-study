@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月23日16:52:51
+        * 目的:   箭头函数
+        *
+        * 结果:
+        *       ---------------------------------
+        *       箭头函数特点:不会绑定this
+        *       ---------------------------------
+        * */
+    </script>
 </head>
 <body>
+<script>/*
 
+    function funcName(params) {
+        return params + 2;
+    }
+
+    funcName(2);
+    // 4
+    */
+//    等价于
+var funcName = params => params + 2;
+funcName(2);
+// 4
+/*
+* 语法
+* var 函数名 = 函数参数 => 表达式
+* 函数参数没有直接写()
+* 表达式一行可以不写{}
+*
+* */
+</script>
 </body>
 </html>
