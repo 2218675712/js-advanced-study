@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间: 2020年05月23日23:09:29
+        * 目的: function学习
+        *
+        * 结果:
+        *       ---------------------------------
+        *       函数也是对象
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // Function里面参数都是字符串格式
+    var f = new Function('a', 'b', 'console.log(a+b)');
+    f(2, 5);
+    f.index = 10;
+    console.log(f.__proto__ === Function.prototype);
+    console.log(f instanceof Object);
+    console.log(f.index);
+</script>
+</body>
+</html>
