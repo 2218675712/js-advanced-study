@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月23日10:50:11
+        * 目的:   super学习
+        *
+        * 结果:
+        *       ---------------------------------
+        *       super
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    class Fa {
+        say() {
+            return '我是老爸';
+        }
+
+        drive() {
+            console.log('driving');
+        }
+
+    }
+
+    class Son extends Fa {
+
+        say() {
+            console.log(super.say() + '我是儿子');
+        }
+
+        playComputer() {
+            console.log('coding');
+        }
+    }
+
+    var son = new Son();
+    son.say();
+    son.drive();
+    son.playComputer();
+    /*
+      在继承中，实例化子类输出一个方法 先看子类有没有该方法 有就先
+          执行子类的，假如子类里没有，则执行父类的
+    */
+</script>
+</body>
+</html>

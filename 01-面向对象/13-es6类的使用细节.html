@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月23日11:20:37
+        * 目的:   this指向
+        *
+        * 结果:
+        *       ---------------------------------
+        *       1. constructor中的this指向的是new出来的实例对象
+        *       2. 自定义的方法,一般也指向的new出来的实例对象
+        *       3. 绑定事件之后this指向的就是触发事件的事件源
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<input type="button" value="按我"/>
+<script>
+    // es6类没有变量提升 所以必须先定义类 后实例化对象
+    var _this;
+
+    class Student {
+        constructor(sname) {
+            // 1.把this指向保存起来, 供调用
+            _this = this;
+            this.sname = sname;
+            this.btn = document.querySelector('input');
+            //因为点击的时候this是input
+            //第一种,通过创建实例的this
+            // this.btn.onclick = this.study;
+            //第二种,通过箭头函数和call改变this指向
+            /*            this.btn.onclick = () => {
+                            // 这个是外部的this,也就是student
+                            // this.study.call(this);
+                            this.study.apply(this);
+                        };*/
+            // 第三种,通过bind绑定(因为只有bind是只绑定不执行)
+            this.btn.onclick = this.study.bind(this);
+        }
+
+        study() {
+            // console.log(this);//是按钮,因为按钮调用了
+            // console.log(_this)//是实例,因为在创建实例的时候就保存了下来
+            // 第一种
+            // console.log(_this.sname + 'work hard');
+            // 第二种
+            // console.log(this.sname + 'work hard');
+            // 第三种
+            console.log(this.sname + 'work hard');
+        }
+    }
+
+    // 通过实例调用，没有什么问题
+    let s1 = new Student('jack');
+    s1.study();
+    // console.log(_this === s1);//说明谁new他,谁调用了
+    // call和apply区别
+    // call(obj,1,2)   apply(obj,[1,2])
+</script>
+</body>
+</html>
