@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月24日16:50:41
+        * 目的:   学习谁调用,this指向
+        *
+        * 结果:
+        *       ---------------------------------
+        *       setTimeout  只运行一次
+        *       setInterval   重复运行
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    /*
+        function fn() {
+            console.log(this);
+            console.log('hello everyone');
+        }
+
+        fn(); // fn.call() 普通函数调用 则函数中this === window
+        */
+    /*
+
+        var obj = {
+            sayHello: function () {
+                console.log(this);
+                console.log('hi')
+            }
+        }
+        obj.sayHello();// 对象调用 函数中this === 该对象
+    */
+    /*
+
+        function Student() {
+        }
+
+        new Student(); // 构造函数调用 this === 实例对象
+    */
+    /*
+           btn.onclick = fun  // 通过事件触发 this指的是绑定事件对象
+        */
+    /*
+
+        setInterval(function () {
+            console.log(this);// 定时执行函数中this === window
+        },1000)
+    */
+    (function () {
+        console.log(this); // 立即执行函数中this === window
+        console.log(11);
+    })();
+
+
+</script>
+</body>
+</html>
