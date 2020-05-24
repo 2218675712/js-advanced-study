@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月24日22:13:04
+        * 目的:   bind案例
+        *
+        * 结果:
+        *       ---------------------------------
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<button type="button">获取验证码</button>
+<script>
+    var btn = document.querySelector("button");
+    var num = 10;
+    btn.onclick = function () {
+        this.innerHTML = "剩余时间:" + num + "秒";
+        setInterval(function () {
+            if (num >= 0) num--;
+            // 因为这是是windows调用,所以无效
+            this.innerHTML = "剩余时间:" + num + "秒";
+
+        }.bind(this), 1000);
+    }
+</script>
+</body>
+</html>
