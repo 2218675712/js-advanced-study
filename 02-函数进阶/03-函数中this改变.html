@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月24日21:37:45
+        * 目的:   学习三种调用方式
+        *
+        * 结果:
+        *       ---------------------------------
+        *       call() apply() bind()
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // call() apply() bind()
+    function fn(a, b) {
+        console.log(this);
+        console.log(a, b);
+    }
+
+    var obj = {
+        a: 10
+    }
+
+    // 第一个参数改变this指向,后面的写传值
+    fn.call(obj, 12, 12);
+
+    // 第一个参数改变this指向,后面数组的写传值
+    // 由于某些情况下,数据是数组,这时候可以用apply进行处理
+    // fn.apply(obj, [1, 2]);
+    var arr = [10, 12, 45, 38];
+    var max = Math.max.apply(null, arr);
+    console.log(max);
+
+    // bind() bind()可以改变函数中this指向 但它不会调用函数
+    // 返回由指定this值和初始化参数改造的原函数拷贝
+    // bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
+    var newFn = fn.bind(obj, 1, 2);
+    newFn();
+</script>
+</body>
+</html>
