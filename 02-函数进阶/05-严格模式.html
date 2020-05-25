@@ -22,15 +22,80 @@
     * 严格模式  在严格的条件下执行代码 ie10以上
     *
     * */
-    // 启用严格模式
-    "use strict";
+    // 全局严格模式
+    // 'use strict';
 
-    function fn() {
-        num = 10;
+    /*
+        function fn() {
+            num = 10;
+        }
+        // 严格模式禁止变量没有声明就赋值 变量必须先定义后赋值
+        fn();
+        console.log(num);
+    */
+
+    /*
+        // 函数内严格模式
+        (function () {
+            'use strict';
+            num = 10;
+        })()
+    */
+
+    /*
+        var num = 10;
+        delete num;
+        // 禁止删除已经声明的变量
+    */
+
+    /*
+        function fn() {
+            // 非严格模式是Window
+            console.log(this);
+
+        }
+
+        fn()
+
+        //严格模式下 全局作用域中函数this是undefined
+        function Student(num, age) {
+            // 因为严格模式下this是undefined所以会报错
+            this.num = num;
+            this.age = age;
+        }
+
+        Student(10, 20);
+    */
+
+    /*
+        // 严格模式下 参数名不能重复
+        function f(num, num) {
+            console.log(num + num)
+        }
+
+        f(20, 20);
+        */
+
+/*
+    if (true){
+        function fn() {
+
+        }
+        fn()
     }
+    不允许在非函数代码块中定义函数
+*/
 
-    fn();
-    console.log(num);
+    /*
+
+  严格模式一些变化
+  1 严格模式禁止变量没有声明就赋值 变量必须先定义后赋值
+  2 禁止删除已经声明的变量
+  3 严格模式下 全局作用域中函数this是undefined
+    构造函数不加new this会报错
+  4 严格模式下 参数名不能重复
+  5 不允许在非函数代码块中定义函数
+*/
 </script>
 </body>
 </html>
