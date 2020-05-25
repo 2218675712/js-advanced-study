@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月25日09:37:08
+        * 目的:   js高阶函数
+        *
+        * 结果:
+        *       ---------------------------------
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // 高阶函数 函数的参数是函数或者返回值是函数
+    function f() {
+        return function () {
+            console.log("123");
+            return function () {
+                console.log("456")
+            }
+        }
+    }
+
+    f()()();
+</script>
+</body>
+</html>
