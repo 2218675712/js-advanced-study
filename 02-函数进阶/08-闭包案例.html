@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月25日21:23:24
+        * 目的:   js闭包案例
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<ul class="nav">
+    <li>北京</li>
+    <li>上海</li>
+    <li>深圳</li>
+</ul>
+<script>
+    var list = document.querySelector("ul.nav").querySelectorAll("li");
+
+    /*
+        // 思路一 动态添加属性
+        for (var i = 0; i < list.length; i++) {
+            list[i].index = i;
+            list[i].onclick = function () {
+                console.log(this.index);
+            }
+        }
+      */
+
+/*
+    // 思路二 闭包
+    for (var i = 0; i < list.length; i++) {
+        (function (i) {
+            list[i].onclick = function () {
+                console.log(i);
+            }
+        })(i);
+    }
+*/
+
+    // 思路三 es6 let
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            console.log(i);
+        }
+    }
+</script>
+</body>
+</html>
