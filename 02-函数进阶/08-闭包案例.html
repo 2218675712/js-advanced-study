@@ -35,23 +35,58 @@
         }
       */
 
-/*
-    // 思路二 闭包
-    for (var i = 0; i < list.length; i++) {
-        (function (i) {
+    /*
+        // 思路二 闭包
+        for (var i = 0; i < list.length; i++) {
+            (function (i) {
+                list[i].onclick = function () {
+                    console.log(i);
+                }
+            })(i);
+        }
+    */
+
+    /*
+        // 思路三 es6 let
+        for (let i = 0; i < list.length; i++) {
             list[i].onclick = function () {
                 console.log(i);
             }
-        })(i);
-    }
-*/
-
-    // 思路三 es6 let
-    for (let i = 0; i < list.length; i++) {
-        list[i].onclick = function () {
-            console.log(i);
         }
-    }
+    */
+
+    /*
+        // 3秒后 打印每个城市
+        for (var i = 0; i < list.length; i++) {
+            // 闭包
+            (function (i) {
+                setTimeout(function () {
+                    console.log(list[i].innerHTML);
+                }, 3000)
+
+            })(i)
+        }
+    */
+    // 滴滴打车 3公里以内 14 每增加1公里收5元
+    // 堵车 在原来收费上多收5元
+    var c = (function () {
+        var base = 14;
+        var sum = 0;
+        return {
+            normal: function (n) {
+                if (n <= 3) {
+                    sum = base;
+                } else {
+                    sum = base + (n - 3) * 5;
+                }
+            },
+            yj: function (flag) {
+                return flag ? sum + 5 : sum;
+            }
+        }
+    })()
+    c.normal(5);
+    console.log(c.yj(false));
 </script>
 </body>
 </html>
