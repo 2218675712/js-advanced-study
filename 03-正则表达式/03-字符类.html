@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月26日22:10:02
+        * 目的:   正则-字符类
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    var regExp1 = /[xyz]/; // 字符串有xyz三个其中一个字符
+    console.log(regExp1.test("abcd"));//false
+    console.log(regExp1.test("abxcd"));//true
+    console.log(regExp1.test("abycd"));//true
+    var regExp2 = /^[xyz]$/; // 只能是x或者y或者z
+    console.log(regExp2.test("x"));//true
+    console.log(regExp2.test("xy"));//false
+    console.log(regExp2.test("z"));//true
+    var regExp3 = /^[0-9a-z]$/;
+    console.log(regExp3.test(3));//true
+    console.log(regExp3.test('a3')); // false
+    // 中括号的^表示取反
+    var regExp4 = /^[^0-9a-z]$/;
+    console.log(regExp4.test('5')); // false
+    console.log(regExp4.test('a')); // false
+    console.log(regExp4.test('A')); //true
+
+</script>
+</body>
+</html>
