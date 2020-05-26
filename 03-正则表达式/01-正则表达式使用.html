@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月26日16:54:27
+        * 目的:   正则
+        *
+        * 结果:
+        *       ---------------------------------
+        *       正则表达式对象方法 test() 检测某字符串是不是符合规则
+        *       返回值true表示有符合规则的字符组合
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // 通过new RegExp创建
+    var regExp = new RegExp(/456/);
+    // 直接量
+    var regExp2 = /abc/;
+    // 正则表达式对象方法 test() 检测某字符串是不是符合规则
+    // 返回值true表示有符合规则的字符组合
+    console.log(regExp2.test('abcde'));
+    console.log(regExp2.test('abdde'));
+    console.log(regExp.test(456));
+</script>
+</body>
+</html>

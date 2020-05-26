@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月26日17:47:37
+        * 目的:   正则边界符
+        *
+        * 结果:
+        *       ---------------------------------
+        *       边界符
+        *       ^ 匹配行首的文本 以谁开头
+        *       $ 匹配行尾的文本 以谁结束
+        *
+        *
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // ^ 匹配行首的文本 以谁开头
+    var regExp1 = /^abc/;
+    console.log(regExp1.test('abcdd'));//true
+    console.log(regExp1.test('acabcdd'));//false
+    // $ 匹配行尾的文本 以谁结束
+    var regExp2 = /fd$/;
+    console.log(regExp2.test('abcdfd'));//true
+    console.log(regExp2.test('acafdcdd'));//false
+    // 精确匹配
+    var regExp3 = /^aazz$/;
+    console.log(regExp3.test('aazz'));//true
+    console.log(regExp3.test('aazzz'));//false
+</script>
+</body>
+</html>
