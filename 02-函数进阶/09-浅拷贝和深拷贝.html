@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月27日21:27:56
+        * 目的:   浅拷贝和深拷贝
+        *
+        * 结果:
+        *       ---------------------------------
+        *       浅拷贝在深层次只是拷贝地址
+        *       深拷贝是原样复制
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    var object = {
+        a: 10,
+        b: 20,
+        info: {
+            c: 30
+        }
+    }
+    var target = {}
+    /*
+
+        //    浅拷贝
+        for (var key in object) {
+            // console.log(key);
+            // console.log(object[key]);
+            target[key] = object[key];
+        }
+    */
+
+    // 深拷贝
+    function deepCopy(target, source) {
+        for (var key in source) {
+            // item存放原始的每个数据
+            var item = source[key];
+            // 判断是否为数组
+            // 注意顺序不能乱,因为Array也是对象
+            if (item instanceof Array) {
+                target[key] = [];
+                // 递归
+                deepCopy(target[key], item);
+            } else if (item instanceof Object) {
+                // 判断是否为对象
+                target[key] = {};
+                deepCopy(target[key], item);
+            } else {
+                // 简单数据类型
+                target[key] = item;
+            }
+        }
+    }
+
+    deepCopy(target, object);
+</script>
+</body>
+</html>
