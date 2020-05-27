@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 时间:   2020年05月27日15:40:55
+        * 目的:   正则
+        *
+        * 结果:
+        *       ---------------------------------
+        *       正则表达式对象方法 test() 检测某字符串是不是符合规则
+        *       返回值true表示有符合规则的字符组合
+        *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // *表示可以出现0次或多次 >=0 {0,}
+    let regExp1 = /^c*$/;
+    console.log(regExp1.test(''));//true
+    console.log(regExp1.test('c'));//true
+    console.log(regExp1.test('cc'));//true
+    console.log(regExp1.test('adfg'));//true
+    // +表示可以出现1次或多次 >=1 {1,}
+    let regExp2 = /^c+$/;
+    console.log(regExp2.test('')); // false
+    console.log(regExp2.test('c')); // true
+    console.log(regExp2.test('cc')); // true
+    console.log(regExp2.test('adfg')); //false
+    // ?表示可以出现1次或0次 0 || 1 {0,1}
+    let regExp3 = /^c?$/;
+    console.log(regExp3.test('')); // true
+    console.log(regExp3.test('c')); // true
+    console.log(regExp3.test('cc')); // false
+    console.log(regExp3.test('adfg')); //false
+    // 重复3次
+    let regExp4 = /^c{3}$/;
+    console.log(regExp4.test('')); // false
+    console.log(regExp4.test('c')); // false
+    console.log(regExp4.test('cc')); // false
+    console.log(regExp4.test('ccc')); // true
+    // 至少3次
+    let regExp5 = /^c{3,}$/;
+    console.log(regExp5.test('')); // false
+    console.log(regExp5.test('c')); // false
+    console.log(regExp5.test('cc')); // false
+    console.log(regExp5.test('ccccc')); // true
+    // 3~5次
+    let regExp6 = /^c{3,5}$/;
+    console.log(regExp6.test('')); // false
+    console.log(regExp6.test('c')); // false
+    console.log(regExp6.test('ccc')); // true
+    console.log(regExp6.test('cccccc')); // false
+
+</script>
+</body>
+</html>
