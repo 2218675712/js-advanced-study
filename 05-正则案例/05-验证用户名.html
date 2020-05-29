@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .danger {
+            color: red;
+        }
+
+        .success {
+            color: aqua;
+        }
+    </style>
+</head>
+
+<script>
+    /*
+        * 时间:   2020年05月29日21:17:31
+        * 目的:   案例-验证用户名合不合法
+        *
+        * 结果:
+        *       ---------------------------------
+        *
+        *       ---------------------------------
+    * */
+</script>
+<body>
+<input type="text" id="uname">
+<span id="tip"></span>
+<script>
+    let uname = document.querySelector("#uname");
+    let tip = document.querySelector("#tip");
+    let regExp = /^[a-zA-Z0-9_-]{6,16}$/;
+    uname.onblur = function () {
+        if (regExp.test(this.value)) {
+            tip.className = 'success';
+            tip.innerHTML = '用户名合法';
+        } else {
+            tip.className = 'danger';
+            tip.innerHTML = '用户名不合法';
+        }
+
+    }
+</script>
+</body>
+</html>
