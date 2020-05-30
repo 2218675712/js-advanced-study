@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+            * 时间:   2020年05月30日16:45:58
+            * 目的:   预定义规则
+            *
+            * 结果:
+            *       ---------------------------------
+            *
+            *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    /*
+    * \d  —— 数字[0-9]  —— 例子：a\dc —— a1c
+    * \D  —— 非数字[^\d]  —— 例子：a\Dc —— adc
+    * \s   —— 空白字符[<空格>\t\r\n\f\v]  —— 例子：a\sc —— a c
+    * \S  —— 非空白字符[^\s]  —— 例子：a\Sc —— a1c
+    * \w  —— 单词字符[a-zA-Z0-9]  —— 例子：a\wc —— a1c
+    * \W  —— 非单词字符[^\w]  —— 例子：a\Wc —— a c
+    * */
+
+    // 案例:实现匹配座机号码      020-12345678        0201-12345678
+    let regExp = /\d{3}-\d{8}|\d{4}-\d{8}/;
+    console.log(regExp.test("020-12345678"));
+    console.log(regExp.test("0201-12345678"));
+</script>
+</body>
+</html>

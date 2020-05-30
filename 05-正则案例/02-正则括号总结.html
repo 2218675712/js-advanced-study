@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+            * 时间:   2020年05月30日15:55:58
+            * 目的:   括号使用
+            *
+            * 结果:
+            *       ---------------------------------
+            *
+            *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<script>
+    // 只能是x或y或z
+    let regExp1 = /^[xyz]$/;
+    console.log(regExp1.test("x"));//true
+    console.log(regExp1.test("xyz"));//false
+    // 最后一个重复3次
+    let regExp2 = /^xyz{3}$/;
+    console.log(regExp2.test("xyzxyzxyz"));//false
+    console.log(regExp2.test("xyzzz"));//true
+    // 小括号里面是独立的
+    let regExp3 = /^(xyz){3}$/;
+    console.log(regExp3.test("xyzxyzxyz"));
+    console.log(regExp3.test("xyzxyz"));
+</script>
+</body>
+</html>

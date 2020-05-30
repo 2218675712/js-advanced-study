@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+            * 时间:   2020年05月30日20:59:22
+            * 目的:   使用正则屏蔽敏感词
+            *
+            * 结果:
+            *       ---------------------------------
+            *       ---------------------------------
+        * */
+    </script>
+</head>
+<body>
+<textarea name="" id="msg" cols="30" rows="10"></textarea>
+<button>提交</button>
+<script>
+    let btn = document.querySelector("button");
+    let textarea = document.querySelector("textarea");
+    btn.onclick = function () {
+        textarea.value = textarea.value.replace(/激情|gay/gi, "**");
+    }
+</script>
+</body>
+</html>
