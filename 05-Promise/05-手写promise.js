@@ -53,28 +53,85 @@ class Promise {
 
     // then传递成功或失败回调函数
     then(onFulfilled, onRejected) {
+        let _this = this;
+        // 将来返回新的promise
+        let promise2;
 
+        // 成功调用函数
+        /**
+         *
+         * @param promise2      新的promise
+         * @param x             传来的数据(可能是普通值,可能是函数)
+         * @param resolve       成功调用什么
+         * @param reject        失败调用什么
+         */
+        function resolvePromise(promise2, x, resolve, reject) {
+            if (x != null && (typeof x === 'object' || typeof x === 'function')) {
+                // 判断是否调用
+                let called;
+                try {
+                    // 设置then指向
+                    let then = x.then;
+                    if (typeof then === "function") {
+                        // 改变this指向,形成调用原型链     成功调用
+                        then.call(x, function (y) {
+                            if (called) return;
+                            called = true;
+                            resolvePromise(promise2, y, resolve, reject);
+                            // 失败调用
+                        }, function (error) {
+                            if (called) return;
+                            called = true;
+                            reject(error);
+                        });
+                    } else {
+                        // 不是函数,是一个普通对象,直接成功
+                        resolve(x);
+                    }
+                } catch (e) {
+                    if (called) return;
+                    called = true;
+                    reject(e);
+                }
+
+            }else {
+                resolve(x);
+            }
+        }
+
+        // 如果状态为成功
+        if (this.status === 'resolved') {
+            // 执行成功函数，把数据传过去
+            promise2 = new Promise(function (resolve, reject) {
+                // 使用异步任务才能提前拿到值
+                setTimeout(function () {
+                    try {
+                        // 拿到成功的返回值
+                        let x = onFulfilled(_this.value);
+                        // 因为promise2不执行完拿不到，所以使用异步
+                        resolvePromise(promise2, x, resolve, reject);
+                    } catch (e) {
+                        // 一旦有异常,将promise2的状态变为失败
+                        reject(e);
+                    }
+                });
+
+            });
+        }
+        // 如果状态为失败
+        if (this.status === 'rejected') {
+            onRejected(this.reason);
+        }
         // 如果状态为等待
         if (this.status === 'pending') {
             // 将成功或者失败函数保存到数组中
             this.onResolvedCallbacks.push(onFulfilled);
             this.onRejectCallbacks.push(onRejected);
         }
-
-        // 如果状态为成功
-        if (this.status === 'resolved') {
-            // 执行成功函数，把数据传过去
-            onFulfilled(this.value);
-        }
-        // 如果状态为失败
-        if (this.status === 'reasoned') {
-            // 执行失败函数，把原因传过去
-            onRejected(this.reason);
-        }
+        return promise2;
     }
 
 }
-
 
 // 导出成员
 module.exports = Promise;
