@@ -144,7 +144,7 @@ p1.then(data => {
 
 
 // 解决then链式调用
-let Promise = require('./05-手写promise');
+let Promise = require('./04-手写promise-1');
 let p1 = new Promise((resolve, reject) => {
         resolve("成功");
     }
