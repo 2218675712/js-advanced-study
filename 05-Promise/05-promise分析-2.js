@@ -4,11 +4,13 @@ let p1 = new Promise((resolve, reject) => {
 });
 p1.then(data => {
     console.log(data);
-}, err => {
-    console.log(err);
-});
-p1.then(data => {
+    return new Promise((resolve, reject) => {
+        resolve("哈哈");
+    })
+}, error => {
+    console.log(error);
+}).then(data => {
     console.log(data);
-}, err => {
-    console.log(err);
+}, error => {
+    console.log(error);
 });

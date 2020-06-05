@@ -26,12 +26,33 @@ class Promise {
                 }
             }, 0);
         }
-        executorCallBack(resolvFn, rejectFn);
+        try {
+            executorCallBack(resolvFn, rejectFn);
+        } catch (e) {
+            rejectFn(e);
+        }
     }
 
     then(fulfilledCb, rejectedCb) {
-        this.fulfilledArray.push(fulfilledCb);
-        this.rejectedArray.push((rejectedCb));
+        return new Promise((resolve, reject) => {
+            this.fulfilledArray.push(function (value) {
+                try {
+                    let x = fulfilledCb(value);
+                    x instanceof Promise ? x.then(resolve, reject) : resolve(x);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+
+            this.rejectedArray.push(function () {
+                try {
+                    let x = rejectedCb(this.value);
+                    x instanceof Promise ? x.then(resolve, reject) : resolve(x);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        })
     }
 }
 
