@@ -34,25 +34,56 @@ class Promise {
     }
 
     then(fulfilledCb, rejectedCb) {
+        // 处理参数不传递参数
+        typeof fulfilledCb !== "function" ? fulfilledCb = (res) => {
+            return res;
+        } : null;
+        typeof rejectedCb !== "function" ? rejectedCb = (reason) => {
+            throw new Error(reason);
+        } : null;
+
         return new Promise((resolve, reject) => {
             this.fulfilledArray.push(function (value) {
                 try {
                     let x = fulfilledCb(value);
+                    // 判断返回值是不是promise
                     x instanceof Promise ? x.then(resolve, reject) : resolve(x);
                 } catch (e) {
                     reject(e);
                 }
             });
 
-            this.rejectedArray.push(function () {
+            this.rejectedArray.push(function (value) {
                 try {
-                    let x = rejectedCb(this.value);
+                    let x = rejectedCb(value);
                     x instanceof Promise ? x.then(resolve, reject) : resolve(x);
                 } catch (e) {
                     reject(e);
                 }
             });
         })
+    }
+
+    // catch捕获异常,下一次继续执行成功
+    catch(rejectedCb) {
+        return this.then(null, rejectedCb);
+    }
+
+    // 静态方法
+    static All(promiseArr = []) {
+        return new Promise((resolve, reject) => {
+            let index = 0;
+            let res = [];
+            for (let i = 0; i < promiseArr.length; i++) {
+                promiseArr[i].then(val => {
+                    index++;
+                    res[i]=val;
+                    if (index === promiseArr.length) {
+                        resolve(res);
+                    }
+                }, reject);
+            }
+        });
     }
 }
 
