@@ -70,20 +70,45 @@ class Promise {
     }
 
     // 静态方法
-    static All(promiseArr = []) {
+    static all(promiseArr = []) {
         return new Promise((resolve, reject) => {
             let index = 0;
             let res = [];
             for (let i = 0; i < promiseArr.length; i++) {
                 promiseArr[i].then(val => {
                     index++;
-                    res[i]=val;
+                    res[i] = val;
                     if (index === promiseArr.length) {
                         resolve(res);
                     }
                 }, reject);
             }
         });
+    }
+
+    static race(promiseArr = []) {
+        return new Promise((resolve, reject) => {
+            for (const promise of promiseArr) {
+                promise.then(
+                    (value) => {
+                        if (settlementOccurred) return;
+                        settlementOccurred = true;
+                        resolve(value);
+                    },
+                    (err) => {
+                        if (settlementOccurred) return;
+                        settlementOccurred = true;
+                        reject(err);
+                    });
+            }
+            let settlementOccurred = false;
+        });
+    }
+
+    static resolve(result) {
+        return new Promise((resolve, reject) => {
+            resolve(result);
+        })
     }
 }
 
