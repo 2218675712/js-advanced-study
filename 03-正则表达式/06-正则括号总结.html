@@ -19,8 +19,11 @@
 <script>
     // 只能是x或y或z
     let regExp1 = /^[xyz]$/;
+    // 表示找到这一个位置上的字符只能是除了0到3之外的所有字符
+    let regExp4 = /[^0-3]/;
     console.log(regExp1.test("x"));//true
     console.log(regExp1.test("xyz"));//false
+    console.log(regExp4.test(3));
     // 最后一个重复3次
     let regExp2 = /^xyz{3}$/;
     console.log(regExp2.test("xyzxyzxyz"));//false

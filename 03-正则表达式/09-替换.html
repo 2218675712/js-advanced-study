@@ -21,7 +21,7 @@
     let btn = document.querySelector("button");
     let textarea = document.querySelector("textarea");
     btn.onclick = function () {
-        textarea.value = textarea.value.replace(/激情|gay/gi, "**");
+        textarea.value = textarea.value.replace(/(激情|gay)/g, "**");
     }
 </script>
 </body>
