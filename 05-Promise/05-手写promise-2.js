@@ -110,6 +110,11 @@ class Promise {
             resolve(result);
         })
     }
+    static reject(reason) {
+        return new Promise((resolve, reject) => {
+            reject(reason);
+        })
+    }
 }
 
 module.exports = Promise;

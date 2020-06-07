@@ -1,4 +1,4 @@
-let Promise = require('./05-手写promise-2');
+// let Promise = require('./05-手写promise-2');
 let p1 = new Promise((resolve, reject) => {
     setTimeout(function () {
         resolve("ok1");
