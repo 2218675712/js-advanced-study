@@ -63,7 +63,7 @@ function fn4() {
 console.log(fn4.name);
 // fn4
 
-// 4.箭头函数   简化函数简写
+// 5.箭头函数   简化函数简写
 [2, 4, 6].forEach(item => console.log(item));
 // 2,4,6
 // 箭头函数根本没有this, 导致箭头函数this是外层代码块this

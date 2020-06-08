@@ -15,4 +15,43 @@ const 用于定义常量
 二 结构赋值
 
 三 字符串
+
+let name = "张三";
+let str = `用户名${name}`;
+
 四 函数
+
+// 1.函数默认参数
+
+function fn1(a = 10) {
+    console.log(a);
+}
+
+// 2.展开运算符(就是展开数组)
+let fn2 = function (a, b, c) {
+    console.log(a, b, c);
+}
+fn2(...[1, 2, 3]);
+
+// 3.剩余运算符(只能放最后)
+function fn3(a, ...b) {
+    console.log(a);
+    // 10
+    console.log(b);
+    // [ 20, 30, 40 ]
+}
+
+fn3(10, 20, 30, 40);
+
+// 4.函数属性name
+console.log(fn4.name);
+
+// 5.箭头函数
+[2, 4, 6].forEach(item => console.log(item));
+
+五 数组
+find/map/reduce/filter/forEach/findIndex/some/every
+Array.from()
+Array.of()
+Array.copyWithin()
+Array.fill()
