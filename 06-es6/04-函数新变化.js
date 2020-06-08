@@ -4,6 +4,10 @@
 *
 * 结果:
 *       ---------------------------------
+*       // 1.函数默认参数
+*       // 2.展开运算符(就是展开数组)
+*       // 3.剩余运算符(只能放最后)
+*       // 4.箭头函数   简化函数简写
 *
 *       ---------------------------------
 * */
@@ -42,13 +46,14 @@ function max() {
 console.log(max(4, 7, 3));
 
 // 3.剩余运算符(只能放最后)
-function fn3(a,...b) {
+function fn3(a, ...b) {
     console.log(a);
     // 10
     console.log(b);
     // [ 20, 30, 40 ]
 }
-fn3(10,20,30,40);
+
+fn3(10, 20, 30, 40);
 
 // 4.函数属性name
 function fn4() {
@@ -57,3 +62,19 @@ function fn4() {
 
 console.log(fn4.name);
 // fn4
+
+// 4.箭头函数   简化函数简写
+[2, 4, 6].forEach(item => console.log(item));
+// 2,4,6
+// 箭头函数根本没有this, 导致箭头函数this是外层代码块this
+let p1 = {
+    name: "彼岸",
+    getName: function () {
+        setTimeout(() => {
+            console.log(this);
+        },1000);
+    }
+}
+
+p1.getName();
+// { name: '彼岸', getName: [Function: getName] }
