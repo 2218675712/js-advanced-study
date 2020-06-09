@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    // 创建并返回一个新的 MutationObserver 它会在指定的DOM发生变化时被调用。
+    let mutationObserver = new MutationObserver(function () {
+        console.log(app.children.length);
+    })
+    //配置MutationObserver在DOM更改匹配给定选项时，通过其回调函数开始接收通知。
+    // 监听对象,监听它的子元素
+    mutationObserver.observe(app, {
+        childList: true
+    })
+
+    for (let i = 0; i < 10; i++) {
+        app.appendChild(document.createElement("p"));
+    }
+
+</script>
+</body>
+</html>
