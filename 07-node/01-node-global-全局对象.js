@@ -25,3 +25,15 @@ fs.readFile('./a.txt', () => {
         console.log('Immediate');
     });
 });
+// console.dir(global, { showHidden: true });
+// global常见的属性
+// Buffer 二进制数据
+// process 进程 process.nextTick()
+// clearInterval() clearTimeout setInterval setTimeout
+// clearImmediate setImmediate
+// process常见的属性 platform  env argv 方法cwd()
+// console.log(process);
+// console.log(process.platform);//显示操作系统平台
+// console.log(process.cwd());//显示当前文件夹
+// console.log(process.env);//显示环境变量
+// console.log(process.argv.slice(2));
