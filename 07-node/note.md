@@ -38,4 +38,15 @@ node可以做什么事情
  4. poll 阶段: 获取新的I/O事件, 例如操作读取文件等等，适当的条件下node将阻塞在这里;
  5. check 阶段: 执行 setImmediate() 设定的callbacks;
  6. close callbacks 阶段: 比如 socket.on(‘close’, callback) 的callback会在这个阶段执行;
+ 
+ 
+ 
+node模块化 
+CommonJS规范     es6 module
+1 模块 一个文件就是一个模块 模块之间相互独立
+2 导入模块  require(模块路径)
+3 导出模块  module.exports
+
+node es+核心模块
+node模块分类 1 核心模块(内置模块) fs、http... 2 自定义模块 3 第三方模块
   
