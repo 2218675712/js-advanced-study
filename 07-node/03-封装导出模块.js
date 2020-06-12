@@ -3,16 +3,28 @@ let path = require('path');
 let vm = require('vm');
 
 
-function Module() {
-
+function Module(id) {
+    this.id = id;
+    this.exports = {}
 }
 
+Module.wrapper = [
+    '(function(exports, require,module, __dirname, __filename) {',
+    '\n})'
+];
+
+Module._cache = {}
 Module._extensions = {
-    '.js'() {
-
+    '.js'(module) {
+        let script = fs.readFileSync(module.id, 'utf-8');
+        let fnStr = Module.wrapper[0] + script + Module.wrapper[1];
+        let fn = vm.runInThisContext(fnStr);
+        let exports = module.exports;
+        fn.call(exports, exports, myReq, module, path.dirname(module.id), module.id);
     },
-    '.json'() {
-
+    '.json'(module) {
+        let json = fs.readFileSync(module.id, 'utf8');
+        module.exports = JSON.parse(json);
     }
 }
 
@@ -36,12 +48,26 @@ function resolveFilename(modulePath) {
     }
 }
 
-function myReq(modulePath) {
-    let absPath = resolveFilename(modulePath);
+function tryModuleLoad(module) {
+    // 1.获取文件扩展名
+    let extname = path.extname(module.id);
+    Module._extensions[extname](module);
+
 }
 
-myReq('./a');
+function myReq(modulePath) {
+    let absPath = resolveFilename(modulePath);
+    let cacheModule = Module._cache[absPath];
+    if (cacheModule) {
+        return cacheModule.exports;
+    }
+    let module = new Module(absPath);
+    Module._cache[absPath] = module;
+    return module.exports;
+}
 
+let str = myReq('./a');
+console.log(str);
 
 
 
