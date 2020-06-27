@@ -39,7 +39,7 @@ class Observer {
     // 更新状态时
     update(newMood) {
         console.log(newMood)
-    }
+     }
 }
 
 let sub = new Subject('girl');
