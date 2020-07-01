@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{info|upper|lower}}
+    {{n|getSum("5")}}
+</div>
+<script>
+    // 全局过滤器
+    Vue.filter("upper", function (val) {
+        // 转大写
+        return val.toUpperCase();
+    });
+    Vue.filter("lower", function (val) {
+        // 转小写
+        return val.toLowerCase();
+    });
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                info: "china",
+                n: 10
+            }
+        },
+        methods: {},
+        filters: {
+            /**
+             *
+             * @param num 管道前参数
+             * @param str 函数参数
+             */
+            getSum: function (num, str) {
+                console.log(str);
+                let sum = 0;
+                for (let i = 0; i <= num; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<!--
+v-if    通过创建元素和销毁元素达到元素的显示和隐藏
+v-show  通过display:none控制元素的显示和隐藏
+-->
+<div id="app">
+    <ul>
+        <li v-if="学历==='博士'">优秀</li>
+        <li v-if="学历==='研究生'">人才</li>
+        <li v-if="学历==='本科'">大众</li>
+        <li v-if="学历==='大专'">继续考</li>
+    </ul>
+    <ol>
+        <li v-show="学历==='博士'">优秀</li>
+        <li v-show="学历==='研究生'">人才</li>
+        <li v-show="学历==='本科'">大众</li>
+        <li v-show="学历==='大专'">继续考</li>
+    </ol>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                学历: "大专"
+            }
+        },
+        methods: {
+            handle() {
+
+            }
+        }
+    });
+</script>
+</body>
+</html>

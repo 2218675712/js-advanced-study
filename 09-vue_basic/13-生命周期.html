@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{info}}
+</div>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        template: "<h1>{{info}}</h1>",
+        data() {
+            return {
+                info: "hello"
+            }
+        },
+        // 实例初始化前
+        beforeCreate() {
+            console.log(this);
+            // console.log(this.info);
+            console.log("beforeCreate()");
+        },
+        // 实例创建完成
+        created() {
+            console.log(this);
+            // console.log(this.info);
+            console.log("created()");
+        },
+        // 挂载(渲染)前
+        beforeMount() {
+            console.log(this.$el);
+        },
+        // 挂载完成
+        mounted() {
+            console.log(this.$el);
+        },
+        // 相应式数据更新前
+        beforeUpdate() {
+            console.log(this.$el);
+        },
+        // 响应式数据更新完成
+        updated() {
+            console.log(this.info);
+        },
+        // 实例销毁前
+        beforeDestroy() {
+            console.log("beforeDestroy()");
+        },
+        // 实例销毁后
+        destroyed() {
+            console.log("destroyed()");
+        }
+
+
+    })
+</script>
+</body>
+</html>

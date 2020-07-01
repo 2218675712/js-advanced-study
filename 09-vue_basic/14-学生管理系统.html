@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <style>
+        .stuTab, .stuAdd {
+            margin: auto;
+            width: 660px;
+            border-collapse: collapse;
+        }
+
+        .stuAdd {
+            background-color: deepskyblue;
+        }
+
+        .stuTab th, .stuTab td {
+            border: 1px solid deepskyblue;
+            padding: 10px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        .stuTab th {
+            background-color: deepskyblue;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="stuAdd">
+        <label>
+            编号:<input type="text" v-model="id" :disabled="flag">
+        </label>
+        <label>
+            姓名:<input type="text" v-model="name">
+        </label>
+        <label>
+            性别:<input type="text" v-model="sex">
+        </label>
+        <button @click="handleAddStudent">提交</button>
+    </div>
+    <table class="stuTab">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="stu in students" :key="stu.id">
+            <td>{{stu.id}}</td>
+            <td>{{stu.name}}</td>
+            <td>{{stu.sex}}</td>
+            <td>
+                <a href="#" @click.prevent="toEdit(stu.id)">修改</a>
+                |
+                <a href="#" @click.prevent="removeStudent(stu.id)">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                flag: false,
+                students: [{
+                    id: 1,
+                    name: "张三",
+                    sex: "男"
+                }, {
+                    id: 2,
+                    name: "李莉",
+                    sex: "女"
+                }, {
+                    id: 3,
+                    name: "爱丽丝",
+                    sex: "女"
+                }],
+                id: "",
+                name: "",
+                sex: ""
+            }
+        },
+        methods: {
+            handleAddStudent() {
+                if (this.flag) {
+                    // 用户点击修改 修改好数据 点击提交 此时会进入这个分支
+                    this.students.some(item => {
+                        if (item.id == this.id) {
+                            item.name = this.name;
+                            item.sex = this.sex;
+                            return true;
+                        }
+                    });
+                    this.flag = false;
+                } else {
+                    // 根据填写的学生生成一个学生对象
+                    let stu = {
+                        id: this.id,
+                        name: this.name,
+                        sex: this.sex
+                    };
+                    this.students.push(stu);
+                }
+                this.id = "";
+                this.name = "";
+                this.sex = "";
+            },
+            toEdit(id) {
+                // 点击修改,禁止添加学生
+                this.flag = true;
+                let student = this.students.filter(stu => {
+                    return stu.id == id;
+                });
+                this.id = student[0].id;
+                this.name = student[0].name;
+                this.sex = student[0].sex;
+            },
+            removeStudent(id) {
+                // let index = this.students.findIndex(stu => stu.id == id);
+                // this.students.splice(index, 1);
+                this.students = this.students.filter(stu => stu.id != id)
+
+            }
+
+        }
+    })
+</script>
+
+</body>
+</html>

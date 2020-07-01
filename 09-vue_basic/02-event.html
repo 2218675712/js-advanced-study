@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="num++">点我加1</button>
+<!--    假如事件之间绑定函数名,默认回传事件对象作为第一个形参,不适合传参数-->
+    <button v-on:click="increace">点我加1</button>
+    <!--@事件名称是v-on:事件名称的简写
+    假如需要传参数,自己的参数放在最前面,最后一个$event作为事件对象
+    -->
+    <button @click="increace(1,2,$event)">点我加1</button>
+    <p>{{num}}</p>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        // model
+        data() {
+            return {
+                num: 1
+            }
+        },
+        // 定义方法的节点
+        methods: {
+            increace(x,y,event) {
+                this.num++;
+                console.log(x+y);
+                console.log(event);
+            }
+        }
+    });
+</script>
+</body>
+</html>

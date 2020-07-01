@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+    <!--
+    item            对象
+    index           索引
+    -->
+    <ul>
+        <li v-for="(item,index) in students" :key="item.id">{{item.name}}--{{item.age}}--{{item.love}}</li>
+    </ul>
+    <!--
+    value       值
+    key         键
+    index       索引
+    -->
+    <ol>
+        <li v-for="(v,k,i) in obj" >{{k}}--{{v}}--{{i}}</li>
+    </ol>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                students: [{
+                    id: 1,
+                    name: "张三",
+                    age: "18",
+                    love: "鱼"
+                }, {
+                    id: 2,
+                    name: "李四",
+                    age: "22",
+                    love: "熊掌"
+                }, {
+                    id: 3,
+                    name: "王五",
+                    age: "24",
+                    love: "兔子"
+                }],
+                obj: {
+                    uname: "罗辑",
+                    age: "25",
+                    sex: "男"
+                }
+            }
+        },
+        methods: {}
+    });
+</script>
+</body>
+</html>

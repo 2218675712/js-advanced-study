@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p @click="num++">
+        <!--    阻止冒泡-->
+        <button @click.stop="num++">点我加1</button>
+    </p>
+    <!--    阻止默认行为-->
+    <a href="http://www.baidu.com/" @click.prevent="handleClick">百度</a>
+    <p>{{num}}</p>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        // model
+        data() {
+            return {
+                num: 1
+            }
+        },
+        // 定义方法的节点
+        methods: {
+            increace(x, y, event) {
+                this.num++;
+                console.log(x + y);
+                console.log(event);
+            },
+            handleClick() {
+                console.log("111");
+            }
+        }
+    });
+</script>
+</body>
+</html>

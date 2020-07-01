@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{reverseStr}}
+    {{reverseStr}}
+    {{reverseStr2()}}
+    {{reverseStr2()}}
+    <input type="text" v-model="firstname">
+    <input type="text" v-model="lastname">
+    <input type="text" v-model.lazy='username'>
+    {{res}}
+    {{fullname}}
+    <div>{{comKey}}</div>
+</div>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                msg: "hello",
+                firstname: "",
+                lastname: "",
+                fullname: "",
+                username: "",
+                res: "",
+                obj: {
+                    a: 10
+                }
+            }
+        },
+        // 普通方法 调用一次执行一次
+        methods: {
+            reverseStr2: function () {
+                console.log("methods");
+                return this.msg.split('').reverse().join('');
+            },
+            checkName: function (username) {
+                setTimeout(() => {
+                    this.res = username === 'admin' ? 'right' : 'wrong';
+                }, 2000);
+            }
+
+        },
+        /*
+        * 计算属性
+        * 本质上是一个函数 实现某种功能或者得到某个结果 使用的时候当作数据属性一样用
+        * 计算属性具有缓存
+        *
+        * */
+        computed: {
+            reverseStr: function () {
+                console.log('computed');
+                return this.msg.split('').reverse().join('');
+            },
+            comKey: function () {
+                return this.obj.a;
+            }
+
+        },
+        /*
+        * 侦听器
+        * */
+        watch: {
+            firstname: function (newStr, oldStr) {
+                console.log(newStr, oldStr);
+                this.fullname = this.firstname + " " + this.lastname;
+            },
+            lastname: function () {
+                this.fullname = this.firstname + " " + this.lastname;
+            },
+            username: function (val) {
+                this.checkName(val);
+                this.res = 'checking...';
+            },
+            //深度检测
+            obj: {
+                handler: function () {
+                    console.log(this.obj.a);
+                },
+                deep: true
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
