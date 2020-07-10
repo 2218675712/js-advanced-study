@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        header {
+            height: 54px;
+            line-height: 54px;
+            background-color: silver;
+            text-align: center;
+            font-size: 26px;
+            color: #ffffff;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        main {
+            display: flex;
+            width: 100%;
+            position: absolute;
+            top: 54px;
+            bottom: 42px;
+        }
+
+        main .left {
+            background-color: silver;
+            flex: 0 0 20%;
+            text-align: center;
+        }
+
+        main .left li {
+            height: 45px;
+            line-height: 45px;
+            color: #ffffff;
+            background-color: #5C423C3C;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        main .left a {
+            text-decoration: none;
+            color: #ffffff;
+
+        }
+
+        .content {
+            flex: 1;
+            text-align: center;
+            height: 100%;
+        }
+
+        footer {
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: silver;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+<script>
+    const Users = {
+        data() {
+            return {
+                userlist: [{
+                    id: 1,
+                    name: '张三',
+                    age: 20
+                }, {
+                    id: 2,
+                    name: '李四',
+                    age: 22
+                }, {
+                    id: 3,
+                    name: '王五',
+                    age: 26
+                }]
+            }
+        },
+        template: `
+            <div>
+                <h2>用户管理</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>用户编号</th>
+                        <th>用户姓名</th>
+                        <th>用户年龄</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr :key="user.id" v-for="user in userlist">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.age}}</td>
+                        <td><a href="javascript:;" @click="goDetail(user.id)">查看详情</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        `,
+        methods: {
+            goDetail(id) {
+                // 重定向
+                this.$router.push(`/userinfo/${id}`);
+            }
+        }
+    }
+    const UserDetail = {
+        props: ["id"],
+        template: `
+            <div>
+                <h2>用户详情,用户的id为{{id}}</h2>
+                <button @click="backUser">返回</button>
+            </div>
+        `,
+        methods: {
+            backUser() {
+                this.$router.go(-1);
+            }
+        }
+    }
+    const Right = {
+        template: `
+            <h3>权限管理区</h3>`
+    }
+    const App = {
+        data() {
+            return {}
+        },
+        template: `
+            <div>
+                <header>某某牌管理系统</header>
+                <main>
+                    <div class="nav left">
+                        <ul>
+                            <li>
+                                <router-link to="/users">用户管理</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/goods">商品管理</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/rights">权限管理</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/orders">订单管理</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content right">
+                        <router-view></router-view>
+                    </div>
+                </main>
+                <footer>
+                    XXXXXXXX公司版权所有
+                </footer>
+            </div>`
+    }
+    const router = new VueRouter({
+        routes: [
+            {
+                path: "/",
+                component: App,
+                redirect: "/users",
+                children: [
+                    {
+                        path: "/users",
+                        component: Users
+                    }, {
+                        path: "/rights",
+                        component: Right
+                    }, {
+                        path: "/userinfo/:id",
+                        component: UserDetail,
+                        props: true
+                    }
+                ]
+            },
+        ]
+    });
+    const vm = new Vue({
+        el: "#app",
+        router
+    });
+</script>
+</body>
+</html>

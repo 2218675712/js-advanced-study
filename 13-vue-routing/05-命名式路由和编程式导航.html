@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link :to="{ name: 'nnews', params: { page: 10 }}">命名新闻展示
+    </router-link>
+    <router-link to="/news">新闻展示</router-link>
+    <router-link to='/news/1'>新闻1</router-link>
+    <router-link to='/news/2'>新闻2</router-link>
+    <router-link to='/news/3'>新闻3</router-link>
+    <router-view></router-view>
+</div>
+<script>
+    const Home = {
+        template: `
+        <h1>主页板块</h1>
+`
+    };
+    const News = {
+        data: {
+            pageInfo: 1
+        },
+        props: ["page"],
+        template:
+                    `
+            <div>
+                <h1>公司新闻</h1>
+                <ul>
+                    <li>第{{page}}页</li>
+                    <button @click='toPage'>返回首页</button>
+                </ul>
+            </div>
+        `, methods: {
+            goHome() {
+                this.$router.go(-1);
+            },
+            toPage() {
+                this.$router.push({
+                    name: 'nnews',
+                    params: {
+                        page: 10
+                    }
+                });
+            }
+        }
+    };
+    let router = new VueRouter({
+        routes: [
+            {
+                path: "/home",
+                component: Home
+            }, {
+                path: '/news',
+                // vue路由重定向
+                redirect: '/news/1'
+            }, {
+                //通过name属性给该路由添加别名
+                name: "nnews",
+                path: "/news/:page",
+                component: News,
+                props: true
+            }
+        ]
+    });
+
+    let vm = new Vue({
+        el: "#app",
+        router
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/news">公司新闻</router-link>
+    <!--    路由占位符-->
+    <router-view></router-view>
+</div>
+<script>
+    const Home = {
+        template: `
+        <h1>主页板块</h1>
+`
+    }
+    const News = {
+        template:
+            `
+            <div>
+                <h1>公司新闻</h1>
+                <router-link to="/news/foreign">国外公司新闻</router-link>
+                <router-link to="/news/chinese">国内公司新闻</router-link>
+                <router-view></router-view>
+            </div>
+        `
+    }
+    // 子路由组件
+    const ForeignNews = {
+        template: `
+        <h2>国外公司新闻</h2>
+`
+    }
+    const ChineseNews = {
+        template: `
+        <h1>国内公司新闻</h1>
+`
+    }
+    // 创建路由实例对象
+    let router = new VueRouter({
+        routes: [
+            {
+                path: '/home',
+                component: Home
+            },
+            {
+                path: '/news',
+                component: News,
+                children: [
+                    {
+                        path: '/news/foreign',
+                        component: ForeignNews
+                    }, {
+                        path: '/news/chinese',
+                        component: ChineseNews
+                    }
+                ]
+            }
+        ]
+    })
+    let vm = new Vue({
+        el: "#app",
+        // 挂载路由实例对象
+        router
+    })
+</script>
+</body>
+</html>

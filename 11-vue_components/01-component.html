@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button {
+            background-color: red;
+        }
+    </style>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-button></my-button>
+    <my-button></my-button>
+    <my-button></my-button>
+</div>
+<script>
+    // 定义全局组件
+    /*
+    * 组件定义时名称可以是短横线也可以是驼峰式
+    * 1假如是驼峰式命名使用组件的时候只能在字符串模版中用驼峰式不能在普通的标签模版中，普通的标签模版中只能用短横线
+    * */
+    Vue.component('my-button', {
+        data() {
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            increase() {
+                this.num++;
+            }
+        },
+        template: "<button @click='increase'>普通按钮{{num}}</button>"
+    });
+    new Vue({
+        el: "#app"
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        .wrap {
+            width: 300px;
+            margin: auto;
+        }
+
+        .wrap .item {
+            height: 55px;
+            line-height: 55px;
+            position: relative;
+            border-top: 1px solid #add8e6;
+        }
+
+        .wrap .item img {
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+
+        .wrap .item .name {
+            width: 90px;
+            position: absolute;
+            left: 55px;
+            top: 0;
+            font-size: 16px;
+        }
+
+        .wrap .item .change {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 38px;
+
+        }
+
+        .wrap .item .change a {
+            text-decoration: none;
+            vertical-align: middle;
+            font-size: 20px;
+            width: 30px;
+            background-color: skyblue;
+        }
+
+        .wrap .item .change .num {
+            width: 40px;
+            height: 25px;
+        }
+
+        .wrap .item .remove {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            width: 40px;
+            font-size: 40px;
+            text-align: center;
+            color: red;
+        }
+
+        .title {
+            height: 40px;
+            line-height: 40px;
+            background-color: lightblue;
+        }
+
+        .total {
+            background-color: #ffce46;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+
+        .total span {
+            color: red;
+            font-weight: 700;
+            font-size: 22px;
+
+        }
+
+        .total button {
+            margin: 0 auto;
+            height: 35px;
+            width: 80px;
+            border: 0;
+            background-color: #f40;
+            outline: none;
+
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <my-cart></my-cart>
+</div>
+<script>
+    let CartTitle = {
+        props: ["username"],
+        template: `
+            <div class="title">{{username}}购物车</div>
+        `
+    }
+    let CartList = {
+        props: ["list"],
+        template: `
+            <div>
+                <div class="item" :key="item.id" v-for="item in list">
+                    <img src="" alt="">
+                    <div class="name">{{item.name}}</div>
+                    <div class="change">
+                        <a href="#" @click.prevent="sub(item.id)">-</a>
+                        <input type="text" class="num" :value="item.num" @blur="changeNum(item.id,$event)">
+                        <a href="#" @click.prevent="add(item.id)">+</a>
+                    </div>
+                    <div class="remove" @click="del(item.id)">
+                        ×
+                    </div>
+                </div>
+            </div>
+        `,
+        methods: {
+            sub(id) {
+                this.$emit("change-num", {
+                    id,
+                    flag: "sub"
+                });
+            },
+            add(id) {
+                this.$emit("change-num", {
+                    id,
+                    flag: "add"
+                });
+            },
+            changeNum(id, event) {
+                this.$emit("change-num", {
+                    id,
+                    flag: "change",
+                    num: event.target.value
+
+                });
+            },
+            del(id) {
+                this.$emit("cart-del", id);
+            }
+        }
+    }
+    let CartTotal = {
+        props: ["list"],
+        // 计算属性
+        computed: {
+            getTotal() {
+                let sum = 0;
+                this.list.forEach(item => {
+                    sum += item.num * item.price;
+                });
+                return sum;
+            }
+        },
+        template: `
+            <div class="total">
+                <span>总价{{getTotal}}</span>
+                <button>提交</button>
+            </div>
+        `
+    }
+    Vue.component("my-cart", {
+        data() {
+            return {
+                "username": "彼岸",
+                list: [{
+                    id: 1,
+                    name: "dell笔记本",
+                    price: 4000,
+                    num: 1
+                }, {
+                    id: 2,
+                    name: "苹果笔记本",
+                    price: 20000,
+                    num: 2
+                }, {
+                    id: 3,
+                    name: "罗技G504",
+                    price: 254,
+                    num: 2
+                }, {
+                    id: 4,
+                    name: "樱桃键盘",
+                    price: 234,
+                    num: 2
+                }]
+            }
+        },
+        template: `
+            <div class="wrap">
+                <cart-title :username="username"></cart-title>
+                <cart-list :list="list" @change-num="changeNum" @cart-del="delCart"></cart-list>
+                <cart-total :list="list"></cart-total>
+            </div>
+        `,
+        components: {
+            'cart-title': CartTitle,
+            'cart-total': CartTotal,
+            'cart-list': CartList
+        },
+        methods: {
+            delCart(id) {
+                // 拿到子组件想要删除的商品id
+                let idx = this.list.findIndex(item => {
+                    return item.id === id;
+                });
+                this.list.splice(idx, 1);
+            },
+            changeNum(obj) {
+                if (obj.flag === "sub") {
+                    this.list.some(item => {
+                        if (item.id === obj.id) {
+                            item.num--;
+                            return true;
+                        }
+                    })
+                } else if (obj.flag === "add") {
+                    this.list.some(item => {
+                        if (item.id === obj.id) {
+                            item.num++;
+                            return true;
+                        }
+                    })
+                } else if (obj.flag === "change") {
+                    this.list.some(item => {
+                        if (item.id === obj.id) {
+                            item.num = obj.num;
+                            return true;
+                        }
+                    })
+                }
+            }
+        }
+    })
+    // 定义购物车组件
+    new Vue({
+        el: "#app"
+    })
+</script>
+</body>
+</html>

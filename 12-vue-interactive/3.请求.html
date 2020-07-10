@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<ul id="list">
+</ul>
+<script>
+    listArr = $("#list");
+    $.ajax({
+        url: 'http://localhost:3000/list',//请求地址
+        type: 'GET',//请求的方式
+        // 请求成功执行的方法
+        success: function (res) {
+            for (let value of res) {
+                console.log(res)
+                listArr.append(`
+<li>
+<p>${value.name}</p>
+<p>${value.phone}</p>
+<p>${value.address}</p>
+</li>
+`)
+            }
+        },
+        //请求失败调用
+        error: function (argument) {
+            console.log(argument);
+        }
+    })
+</script>
+</body>
+</html>

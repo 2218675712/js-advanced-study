@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--
+        <alert-msg></alert-msg>
+        <alert-msg>服务器未响应</alert-msg>
+        <alert-msg>网络超时</alert-msg>
+        -->
+
+    <base-layout>
+        <!--        v-slot:header 可以被重写为 #header-->
+        <template v-slot:header>
+            <p>我是头部</p>
+        </template>
+        <template #footer>
+            <p>我是尾部</p>
+        </template>
+        <p>我是内容</p>
+    </base-layout>
+</div>
+
+<script>
+    /*
+        Vue.component("alert-msg", {
+            data() {
+                return {}
+            },
+            template: `
+                <div>
+                    <Strong>Err</Strong>
+                    <slot>未知错误</slot>
+                </div>
+            `
+        })
+        */
+    Vue.component("base-layout", {
+        template: `
+                <div>
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>
+        `
+    });
+    new Vue({
+        el: "#app"
+    })
+</script>
+</body>
+</html>

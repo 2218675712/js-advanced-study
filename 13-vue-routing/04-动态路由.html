@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/news">新闻展示</router-link>
+    <router-link to='/news/1'>新闻1</router-link>
+    <router-link to='/news/2'>新闻2</router-link>
+    <router-link to='/news/3'>新闻3</router-link>
+    <router-view></router-view>
+</div>
+<script>
+    const Home = {
+        template: `
+        <h1>主页板块</h1>
+`
+    };
+/*
+    const News = {
+        data: {},
+        template:
+                    `
+            <div>
+                <h1>公司新闻</h1>
+                <ul>
+                    <li>第{{$route.params.page}}页</li>
+                </ul>
+            </div>
+        `
+    };
+    */
+    const News = {
+        data: {},
+        props:["page"],
+        template:
+                    `
+            <div>
+                <h1>公司新闻</h1>
+                <ul>
+                    <li>第{{page}}页</li>
+                </ul>
+            </div>
+        `
+    };
+    let router = new VueRouter({
+        routes: [
+            {
+                path: "/home",
+                component: Home
+            }, {
+                path: '/news',
+                // vue路由重定向
+                redirect: '/news/1'
+            }, {
+                path: "/news/:page",
+                component: News,
+                props:true
+            }
+        ]
+    });
+
+    let vm = new Vue({
+        el: "#app",
+        router
+    });
+</script>
+</body>
+</html>
